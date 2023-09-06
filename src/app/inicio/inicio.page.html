@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="#f8b415">
+    <ion-button id="CerrarSesion" fill="clear" (click)="mostrarAlerta()">Cerrar Sesion</ion-button>
+    <ion-title id="Titulo">inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">inicio</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</ion-content>
+
+<div id="container">
+    <ion-label color="#004d99">
+      <h1  id="Bienvenida">Bienvenido @Alumno</h1>
+    </ion-label>
+  <ion-img id="Imagen" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Logo_DuocUC.svg/2560px-Logo_DuocUC.svg.png"
+    ></ion-img> 
+</div>
+
+<div id="ScanQR">
+  <ion-button>
+    <ion-icon slot="start" name="qr-code-outline"></ion-icon>
+    Escanear Codigo QR
+  </ion-button>
+  <ion-button routerLink="/lista-asistencia">
+    <ion-icon slot="start" name="list-circle-outline"></ion-icon>
+    Listas de asistencia
+  </ion-button>
+</div>
+
+
+
+
+<ion-footer id="footer">
+  <ion-toolbar color="#f8b415">
+      <ion-title>Acerca de DuocUC</ion-title>
+    <p>©Copyright DuocUC 2023</p>
+    <h6>Desarrollador de la app: @NaitoLabs</h6>
+  </ion-toolbar>
+</ion-footer>
