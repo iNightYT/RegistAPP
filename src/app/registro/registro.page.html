@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="#f8b415">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title id="Titulo">Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Registro</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <h1>Registro</h1>
+  <div id="container">
+
+    <ion-img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Logo_DuocUC.svg/2560px-Logo_DuocUC.svg.png"
+      alt="logo duoc"></ion-img>
+
+    <ion-card>
+      <ion-card-header>
+
+        <ion-card-title>Registro</ion-card-title>
+
+      </ion-card-header>
+
+      <ion-card-content>
+      <form [formGroup]="formularioRegistro">
+        <ion-list>
+            <ion-item>
+              <ion-input labelPlacement="floating" formControlName="usuario" type="text" value="" required>
+                <div slot="label">Usuario </div>
+              </ion-input>
+            </ion-item>
+          </ion-list>
+
+          <ion-list>
+            <ion-item>
+              <ion-input labelPlacement="floating" formControlName="email" type="email" value="" required>
+                <div slot="label">Email </div>
+              </ion-input>
+            </ion-item>
+          </ion-list>
+
+          <ion-list>
+            <ion-item>
+              <ion-input formControlName="contrasena" labelPlacement="floating" value=""type="password"  name="password" required>
+                <div slot="label">Contraseña </div>
+              </ion-input>
+            </ion-item>
+          </ion-list>
+
+          <ion-list>
+            <ion-item>
+              <ion-input labelPlacement="floating" value="" formControlName="confirmar_contrasena" type="password" required>
+                <div slot="label">Confirmar Contraseña </div>
+              </ion-input>
+            </ion-item>
+          </ion-list>
+      
+          <ion-button fill="clear" type="submit" (click)="registrar()" >Registrar</ion-button>
+        </form>
+        </ion-card-content>
+    
+    
+      </ion-card>
+    </div>
+</ion-content>
+

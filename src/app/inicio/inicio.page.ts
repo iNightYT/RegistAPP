@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./inicio.page.scss'],
 })
 export class InicioPage implements OnInit {
+
+  usuarioUsuario = localStorage.getItem('usuarioUsuario');
+
   constructor(
     private alertController: AlertController,
     private router: Router

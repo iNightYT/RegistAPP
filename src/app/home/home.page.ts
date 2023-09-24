@@ -1,44 +1,54 @@
-import { Component } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
-  usuarios = [
-    { username: 'gust.martinez', password: 'alumnoduoc', redirectTo: '/inicio' },
-    { username: 'profesor', password: 'docenteduoc', redirectTo: '/inicio-docente' },
-  ];
+export class HomePage implements OnInit {
 
-  usuario!: string;
-  password!: string;
+  formularioRegistro: FormGroup;
 
-  constructor(public toastController: ToastController, private router: Router) {}
+  constructor(public fb: FormBuilder, private alertController: AlertController, private router: Router) {
+    this.formularioRegistro = this.fb.group({
+      'usuario': new FormControl("", Validators.required),
+      'contrasena': new FormControl("", Validators.required)
+    })
+  }
 
-  async onLogin() {
-    const user = this.usuarios.find(
-      (u) => u.username === this.usuario && u.password === this.password
-    );
+  ngOnInit() {
+  }
 
-    if (user) {
-      const toast = await this.toastController.create({
-        message: 'Inicio de sesión exitoso',
-        duration: 2000,
-        position: 'top',
+  async ingresar() {
+    var f = this.formularioRegistro.value;
+
+    var usuarioUsuario = localStorage.getItem('usuarioUsuario');
+    var contrasenaUsuario = localStorage.getItem('contrasenaUsuario');
+
+    if (this.formularioRegistro.invalid) {
+      const alert = await this.alertController.create({
+        header: 'Mensaje',
+        message: 'Debes ingresar todos los datos',
+        buttons: ['OK']
       });
-      await toast.present();
 
-      this.router.navigate([user.redirectTo]);
+      await alert.present();
+      return;
+    } else if (usuarioUsuario == f.usuario && contrasenaUsuario == f.contrasena) {
+      localStorage.setItem('autenticado','true');
+      this.router.navigate(["/inicio"]);      
     } else {
-      const toast = await this.toastController.create({
-        message: 'Credenciales incorrectas',
-        duration: 2000,
-        position: 'top',
+      const alert = await this.alertController.create({
+        header: 'Mensaje',
+        message: 'Datos incorrectos',
+        buttons: ['OK']
       });
-      await toast.present();
+
+      await alert.present();
+      return;
     }
   }
 }
