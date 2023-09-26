@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,6 +13,7 @@ export class InicioPage implements OnInit {
 
   constructor(
     private alertController: AlertController,
+    private toastController: ToastController,
     private router: Router
   ) {}
 
@@ -34,9 +35,15 @@ export class InicioPage implements OnInit {
         {
           text: 'Si',
           cssClass: 'alert-button-confirm',
-          handler: () => {
+          handler: async () => {
             console.log('Redireccionando...');
+            localStorage.removeItem('autenticado');
             this.router.navigate(['/home']);
+            const toast = await this.toastController.create({
+              message: 'El usuario cerro sesion con exito!!!',
+              duration: 1500,
+              position: "top",});
+              await toast.present();
           },
         },
       ],

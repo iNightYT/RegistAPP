@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ export class HomePage implements OnInit {
 
   formularioRegistro: FormGroup;
 
-  constructor(public fb: FormBuilder, private alertController: AlertController, private router: Router) {
+  constructor(public fb: FormBuilder, private alertController: AlertController, private toastController: ToastController, private router: Router) {
     this.formularioRegistro = this.fb.group({
       'usuario': new FormControl("", Validators.required),
       'contrasena': new FormControl("", Validators.required)
@@ -39,7 +39,14 @@ export class HomePage implements OnInit {
       return;
     } else if (usuarioUsuario == f.usuario && contrasenaUsuario == f.contrasena) {
       localStorage.setItem('autenticado','true');
-      this.router.navigate(["/inicio"]);      
+      this.router.navigate(["/inicio"]);
+      const toast = await this.toastController.create({
+        message: 'El usuario inicio sesion con exito!!',
+        duration: 1500,
+        position: "top",
+      });
+  
+      await toast.present();
     } else {
       const alert = await this.alertController.create({
         header: 'Mensaje',
