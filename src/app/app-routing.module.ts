@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuntenticadoGuard } from './guard/auntenticado.guard';
 
 const routes: Routes = [
   {
@@ -8,12 +9,13 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'inicio',
     pathMatch: 'full'
   },
   {
     path: 'inicio',
-    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
+    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule),
+    canActivate: [AuntenticadoGuard]
   },
   {
     path: 'restablecer-contrasena',
@@ -25,7 +27,8 @@ const routes: Routes = [
   },
   {
     path: 'lista-asistencia',
-    loadChildren: () => import('./lista-asistencia/lista-asistencia.module').then( m => m.ListaAsistenciaPageModule)
+    loadChildren: () => import('./lista-asistencia/lista-asistencia.module').then( m => m.ListaAsistenciaPageModule),
+    canActivate: [AuntenticadoGuard]
   },
   {
     path: 'lista-asistencia-docente',
