@@ -59,6 +59,18 @@
               </ion-input>
             </ion-item>
           </ion-list>
+
+          <ion-radio-group formControlName="rol">
+            <ion-label>Se registra como</ion-label>
+            <ion-item>
+              <ion-label>Alumno</ion-label>
+              <ion-radio value="Alumno">Alumno</ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label>Docente</ion-label>
+              <ion-radio value="Docente">Docente</ion-radio>
+            </ion-item>
+          </ion-radio-group>
       
           <ion-button fill="clear" type="submit" (click)="registrar()" >Registrar</ion-button>
         </form>

@@ -15,23 +15,33 @@
 
 <div id="container">
     <ion-label color="#004d99">
-      <h1  id="Bienvenida">Bienvenido Alumno {{ usuarioUsuario }}</h1>
+      <h1  id="Bienvenida">Bienvenido {{ rolUsuario }} {{ usuarioUsuario }}</h1>
     </ion-label>
   <ion-img id="Imagen" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Logo_DuocUC.svg/2560px-Logo_DuocUC.svg.png"
     ></ion-img> 
 </div>
 
 <div id="ScanQR">
-  <ion-button>
+  <ion-button *ngIf="rolUsuario === 'Alumno'">
     <ion-icon slot="start" name="qr-code-outline"></ion-icon>
     Escanear Codigo QR
   </ion-button>
-  <ion-button routerLink="/lista-asistencia">
+  <ion-button *ngIf="rolUsuario === 'Alumno'" routerLink="/lista-asistencia">
     <ion-icon slot="start" name="list-circle-outline"></ion-icon>
     Listas de asistencia
   </ion-button>
 </div>
 
+<div id="ScanQR">
+  <ion-button *ngIf="rolUsuario === 'Docente'" routerLink="/listado-cursos">
+    <ion-icon slot="start" name="school-outline"></ion-icon>
+    Listado de cursos
+  </ion-button>
+  <ion-button *ngIf="rolUsuario === 'Docente'" routerLink="/lista-asistencia-docente">
+    <ion-icon slot="start" name="list-circle-outline"></ion-icon>
+    Listas de asistencia
+  </ion-button>
+</div>
 
 
 

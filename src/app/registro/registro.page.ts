@@ -16,6 +16,7 @@ export class RegistroPage implements OnInit {
     this.formularioRegistro = this.fb.group({
       'usuario': new FormControl("", Validators.required),
       'email': new FormControl("", Validators.required),
+      'rol': new FormControl("", Validators.required),
       'contrasena': new FormControl("", Validators.required),
       'confirmar_contrasena': new FormControl("", Validators.required)
     })
@@ -24,7 +25,10 @@ export class RegistroPage implements OnInit {
   ngOnInit() {
   }
 
+
+
   async registrar() {
+    const formularioRegistro = this.formularioRegistro;
     var f = this.formularioRegistro.value;
 
     if (this.formularioRegistro.invalid) {
@@ -49,10 +53,15 @@ export class RegistroPage implements OnInit {
       var usuarioUsuario = f.usuario;
       var emailUsuario = f.email;
       var contrasenaUsuario = f.contrasena;
+      var rolUsuario = formularioRegistro.controls['rol'].value;
+      
 
       localStorage.setItem('usuarioUsuario', usuarioUsuario);
       localStorage.setItem('emailUsuario', emailUsuario);
       localStorage.setItem('contrasenaUsuario', contrasenaUsuario);
+      localStorage.setItem('rolUsuario', rolUsuario);
+  
+
 
       const alert = await this.alertController.create({
         header: 'Mensaje',

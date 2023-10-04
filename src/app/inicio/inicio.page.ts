@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class InicioPage implements OnInit {
 
   usuarioUsuario = localStorage.getItem('usuarioUsuario');
+  rolUsuario = localStorage.getItem('rolUsuario');
 
   constructor(
     private alertController: AlertController,
@@ -38,7 +39,7 @@ export class InicioPage implements OnInit {
           handler: async () => {
             console.log('Redireccionando...');
             localStorage.removeItem('autenticado');
-            this.router.navigate(['/home']);
+            window.history.back();
             const toast = await this.toastController.create({
               message: 'El usuario cerro sesion con exito!!!',
               duration: 1500,
