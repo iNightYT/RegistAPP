@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+
 
 @Component({
   selector: 'app-inicio',
@@ -11,6 +13,8 @@ export class InicioPage implements OnInit {
 
   usuarioUsuario = localStorage.getItem('usuarioUsuario');
   rolUsuario = localStorage.getItem('rolUsuario');
+  lectura: string | undefined;
+  showContent : boolean = false;
 
   constructor(
     private alertController: AlertController,
@@ -19,6 +23,25 @@ export class InicioPage implements OnInit {
   ) {}
 
   ngOnInit() {}
+  
+
+
+  async startScan() {
+    await BarcodeScanner.checkPermission({ force: true });
+    BarcodeScanner.hideBackground();
+    this.toggleVisibility();
+    const result = await BarcodeScanner.startScan();
+
+    if (result.hasContent) {
+      this.lectura = result.content;
+    }
+    this.toggleVisibility();
+    
+  } 
+  toggleVisibility() {
+    this.showContent  = !this.showContent ;
+  }
+  
 
   async mostrarAlerta() {
     const alert = await this.alertController.create({
@@ -58,3 +81,5 @@ const textElement = document.querySelector('#Bienvenida');
   if (textElement) {
     textElement.classList.add('start-animation');
   }
+
+  

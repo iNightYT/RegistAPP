@@ -94,3 +94,8 @@
     font-size: 24px;
     animation: rgbLights 5s linear infinite;
   }
+
+  .transparent-background {
+    --background: transparent;
+    --ion-background-color: transparent;
+  }
