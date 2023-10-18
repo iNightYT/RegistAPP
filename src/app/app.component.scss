@@ -1,0 +1,22 @@
+ion-toolbar{
+    background-color: #f8b415; 
+  }
+
+  ion-content{ 
+    --ion-background-color:#00274d; }
+
+    .white-text-icon {
+        color: white; /* Cambia el color del texto a blanco */
+      }
+      
+      .white-text-icon ion-icon {
+        color: white; /* Cambia el color del icono a blanco */
+      }
+      .large-text {
+        font-size: 25px; /* Elige el tamaño de fuente que desees */
+        color: white; /* Cambia el color del icono a blanco */
+      }
+
+      .ion-item .ion-icon {
+        padding-right: 50px; /* Ajusta el espacio entre el icono y el texto según tus preferencias */
+      }

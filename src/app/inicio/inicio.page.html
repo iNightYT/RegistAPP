@@ -1,7 +1,10 @@
 <ion-header [translucent]="true" *ngIf="!showContent">
   <ion-toolbar color="#f8b415">
-    <ion-button id="CerrarSesion" fill="clear" (click)="mostrarAlerta()">Cerrar Sesion</ion-button>
+    <ion-button slot="end" id="CerrarSesion" fill="clear" (click)="mostrarAlerta()">Cerrar Sesion</ion-button>
     <ion-title id="Titulo">inicio</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

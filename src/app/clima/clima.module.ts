@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { InicioPageRoutingModule } from './inicio-routing.module';
+import { ClimaPageRoutingModule } from './clima-routing.module';
 
-import { InicioPage } from './inicio.page';
+import { ClimaPage } from './clima.page';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     FormsModule,
     IonicModule,
-    InicioPageRoutingModule,
+    ClimaPageRoutingModule,
     HttpClientModule
   ],
-  declarations: [InicioPage]
+  declarations: [ClimaPage]
 })
-export class InicioPageModule {}
+export class ClimaPageModule {}

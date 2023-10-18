@@ -29,48 +29,63 @@ export class RegistroPage implements OnInit {
 
   async registrar() {
     const formularioRegistro = this.formularioRegistro;
-    var f = this.formularioRegistro.value;
+  const f = this.formularioRegistro.value;
 
-    if (this.formularioRegistro.invalid) {
-      const alert = await this.alertController.create({
-        header: 'Mensaje',
-        message: 'Debes ingresar todos los datos',
-        buttons: ['OK']
-      });
+  if (this.formularioRegistro.invalid) {
+    const alert = await this.alertController.create({
+      header: 'Mensaje',
+      message: 'Debes ingresar todos los datos',
+      buttons: ['OK']
+    });
 
-      await alert.present();
-      return;
-    } else if (f.contrasena != f.confirmar_contrasena) {
-      const alert = await this.alertController.create({
-        header: 'Mensaje',
-        message: 'Las contraseñas no coinciden',
-        buttons: ['OK']
-      });
+    await alert.present();
+    return;
+  } else if (f.contrasena !== f.confirmar_contrasena) {
+    const alert = await this.alertController.create({
+      header: 'Mensaje',
+      message: 'Las contraseñas no coinciden',
+      buttons: ['OK']
+    });
 
-      await alert.present();
-      return;
-    } else {
-      var usuarioUsuario = f.usuario;
-      var emailUsuario = f.email;
-      var contrasenaUsuario = f.contrasena;
-      var rolUsuario = formularioRegistro.controls['rol'].value;
-      
+    await alert.present();
+    return;
+  } else if (f.contrasena.length < 6 || !/[A-Z]/.test(f.contrasena) || !/\d/.test(f.contrasena)) {
+    const alert = await this.alertController.create({
+      header: 'Mensaje',
+      message: 'La contraseña debe tener al menos 6 caracteres, incluir al menos una mayúscula y un número',
+      buttons: ['OK']
+    });
 
-      localStorage.setItem('usuarioUsuario', usuarioUsuario);
-      localStorage.setItem('emailUsuario', emailUsuario);
-      localStorage.setItem('contrasenaUsuario', contrasenaUsuario);
-      localStorage.setItem('rolUsuario', rolUsuario);
-  
+    await alert.present();
+    return;
+  } else if (!f.email.includes('@') || !/\.(com|cl)$/.test(f.email)) {
+    const alert = await this.alertController.create({
+      header: 'Mensaje',
+      message: 'El correo electrónico debe contener el símbolo "@" y una extensión de dominio válida (por ejemplo, ".com" o ".cl")',
+      buttons: ['OK']
+    });
 
+    await alert.present();
+    return;
+  } else {
+    var usuarioUsuario = f.usuario;
+    var emailUsuario = f.email;
+    var contrasenaUsuario = f.contrasena;
+    var rolUsuario = formularioRegistro.controls['rol'].value;
 
-      const alert = await this.alertController.create({
-        header: 'Mensaje',
-        message: 'Registrado correctamente',
-        buttons: ['OK']
-      });
+    localStorage.setItem('usuarioUsuario', usuarioUsuario);
+    localStorage.setItem('emailUsuario', emailUsuario);
+    localStorage.setItem('contrasenaUsuario', contrasenaUsuario);
+    localStorage.setItem('rolUsuario', rolUsuario);
 
-      await alert.present();      
-      this.router.navigate(["/home"]);
-    }
+    const alert = await this.alertController.create({
+      header: 'Mensaje',
+      message: 'Registrado correctamente',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+    this.router.navigate(["/home"]);
   }
+}
 }
