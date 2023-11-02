@@ -38,6 +38,13 @@
   <h5>{{ lectura }}</h5>
 </div>
 
+<div id="parar_scan" *ngIf="showContent">
+  <ion-button (click)="stopScan()" *ngIf="rolUsuario === 'Alumno'">
+    <ion-icon slot="start" name="stop-circle-outline"></ion-icon>
+    Parar de escanear
+  </ion-button>
+</div>
+
 <div id="ScanQR">
   <ion-button *ngIf="rolUsuario === 'Docente'" routerLink="/listado-cursos">
     <ion-icon slot="start" name="school-outline"></ion-icon>

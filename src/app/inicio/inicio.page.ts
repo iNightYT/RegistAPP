@@ -38,6 +38,13 @@ export class InicioPage implements OnInit {
     this.toggleVisibility();
     
   } 
+
+  async stopScan() {
+    BarcodeScanner.showBackground();
+    this.toggleVisibility();
+    BarcodeScanner.stopScan();
+  };
+
   toggleVisibility() {
     this.showContent  = !this.showContent ;
   }

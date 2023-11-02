@@ -99,3 +99,13 @@
     --background: transparent;
     --ion-background-color: transparent;
   }
+
+  #parar_scan{
+    text-align: center;
+    
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 28%;
+    transform: translateY(-50%);
+  }
