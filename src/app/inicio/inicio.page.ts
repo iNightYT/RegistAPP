@@ -40,9 +40,31 @@ export class InicioPage implements OnInit {
   } 
 
   async stopScan() {
-    BarcodeScanner.showBackground();
-    this.toggleVisibility();
-    BarcodeScanner.stopScan();
+    const alert = await this.alertController.create({
+      header: 'Parar escaneo',
+      message: 'Usted quiere parar de escanear el codigo?',
+      buttons: [
+        {
+          text: 'No',
+          cssClass: 'alert-button-cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Alerta cancelada');
+          },
+        },
+        {
+          text: 'Si',
+          cssClass: 'alert-button-confirm',
+          handler: async () => {
+            console.log('parando...');
+            BarcodeScanner.showBackground();
+            this.toggleVisibility();
+            BarcodeScanner.stopScan();
+          },
+        },
+      ],
+    });
+    await alert.present();
   };
 
   toggleVisibility() {
