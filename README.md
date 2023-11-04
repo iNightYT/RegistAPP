@@ -9,6 +9,9 @@
 - Se agrego la interfaces graficas (GUI) de las app (6 de septiembre 2023)
 - Se agregaron algunas funciones como el de login que se puede iniciar sesion con un usuario en especifico que era de un alumno x y un docente x (6 de septiembre 2023)
 - Se genero una apk de la version (6 de septiembre 2023) Link de descarga: https://drive.google.com/file/d/1MVMhuLQoU5oLmlidA9j7zPkOWrRF3ihU/view?usp=drive_link
+- Usuarios inicio de sesion:
+- Alumno: User: gust.martinez pass: alumnoduoc
+- Docente: User: profesor pass: docenteduoc
 
 ### V2
 - Se agrego una page de registro con funciones (23 de septiembre 2023)
