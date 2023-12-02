@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-
+import { SqliteService } from '../Servicios/sqlite.service';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -12,7 +12,7 @@ export class RegistroPage implements OnInit {
 
   formularioRegistro: FormGroup;
 
-  constructor(private router: Router, public fb: FormBuilder, private alertController: AlertController) {
+  constructor(private router: Router, public fb: FormBuilder, private alertController: AlertController, private SqliteService: SqliteService) {
     this.formularioRegistro = this.fb.group({
       'usuario': new FormControl("", Validators.required),
       'email': new FormControl("", Validators.required),
@@ -22,7 +22,9 @@ export class RegistroPage implements OnInit {
     })
    }
 
-  ngOnInit() {
+  async ngOnInit() {
+  await this.SqliteService.inicializarBaseDeDatos();
+
   }
 
 
@@ -68,15 +70,8 @@ export class RegistroPage implements OnInit {
     await alert.present();
     return;
   } else {
-    var usuarioUsuario = f.usuario;
-    var emailUsuario = f.email;
-    var contrasenaUsuario = f.contrasena;
-    var rolUsuario = formularioRegistro.controls['rol'].value;
+    await this.SqliteService.registrarUsuario(f.usuario, f.email, f.contrasena, f.rol);
 
-    localStorage.setItem('usuarioUsuario', usuarioUsuario);
-    localStorage.setItem('emailUsuario', emailUsuario);
-    localStorage.setItem('contrasenaUsuario', contrasenaUsuario);
-    localStorage.setItem('rolUsuario', rolUsuario);
 
     const alert = await this.alertController.create({
       header: 'Mensaje',

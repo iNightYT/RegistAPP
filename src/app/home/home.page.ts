@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SqliteService  } from '../Servicios/sqlite.service';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class HomePage implements OnInit {
 
   formularioRegistro: FormGroup;
 
-  constructor(public fb: FormBuilder, private alertController: AlertController, private toastController: ToastController, private router: Router) {
+  constructor(public fb: FormBuilder, private alertController: AlertController, private toastController: ToastController, private router: Router, private SqliteService: SqliteService) {
     this.formularioRegistro = this.fb.group({
       'usuario': new FormControl("", Validators.required),
       'contrasena': new FormControl("", Validators.required)
@@ -27,8 +28,6 @@ export class HomePage implements OnInit {
   async ingresar() {
     var f = this.formularioRegistro.value;
 
-    var usuarioUsuario = localStorage.getItem('usuarioUsuario');
-    var contrasenaUsuario = localStorage.getItem('contrasenaUsuario');
 
     if (this.formularioRegistro.invalid) {
       const alert = await this.alertController.create({
@@ -39,16 +38,22 @@ export class HomePage implements OnInit {
 
       await alert.present();
       return;
-    } else if (usuarioUsuario == f.usuario && contrasenaUsuario == f.contrasena) {
-      localStorage.setItem('autenticado','true');
-      this.router.navigate(["/inicio"]);
-      const toast = await this.toastController.create({
-        message: 'El usuario inicio sesion con exito!!',
-        duration: 1500,
-        position: "top",
-      });
+    } else {
+      const resultadoAutenticacion = await this.SqliteService.autenticarUsuario(f.usuario, f.contrasena);
+
+      if (resultadoAutenticacion.autenticado) {
+        localStorage.setItem('autenticado', 'true');
+        localStorage.setItem('usuarioUsuario', resultadoAutenticacion.usuario);
+        localStorage.setItem('rolUsuario', resultadoAutenticacion.rol);
+        this.router.navigate(["/inicio"]);
   
-      await toast.present();
+        const toast = await this.toastController.create({
+          message: 'El usuario inició sesión con éxito!!',
+          duration: 1500,
+          position: "top",
+        });
+
+        await toast.present();  
     } else {
       const alert = await this.alertController.create({
         header: 'Mensaje',
@@ -59,5 +64,6 @@ export class HomePage implements OnInit {
       await alert.present();
       return;
     }
+  }
   }
 }
