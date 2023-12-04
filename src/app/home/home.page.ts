@@ -45,6 +45,7 @@ export class HomePage implements OnInit {
         localStorage.setItem('autenticado', 'true');
         localStorage.setItem('usuarioUsuario', resultadoAutenticacion.usuario);
         localStorage.setItem('rolUsuario', resultadoAutenticacion.rol);
+        localStorage.setItem('usuarioId', resultadoAutenticacion.usuarioId); // Almacena el usuarioId
         this.router.navigate(["/inicio"]);
   
         const toast = await this.toastController.create({

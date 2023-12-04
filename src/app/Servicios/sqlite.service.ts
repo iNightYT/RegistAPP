@@ -16,6 +16,8 @@ export class SqliteService {
     });
 
     await db.executeSql('CREATE TABLE IF NOT EXISTS usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, usuario TEXT, email TEXT, contrasena TEXT, rol TEXT)', []);
+    await db.executeSql('CREATE TABLE IF NOT EXISTS asistencia (id INTEGER PRIMARY KEY AUTOINCREMENT, ramo TEXT, fecha TEXT, contenido TEXT, usuario_id INTEGER, FOREIGN KEY(usuario_id) REFERENCES usuarios(id))', []);
+
   }
 
   async registrarUsuario(usuario: string, email: string, contrasena: string, rol: string) {
@@ -36,9 +38,59 @@ export class SqliteService {
     const result = await db.executeSql('SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?', [usuario, contrasena]);
     if (result.rows.length > 0) {
       const user = result.rows.item(0);
-      return { autenticado: true, usuario: user.usuario, rol: user.rol };
+      return { autenticado: true, usuario: user.usuario, rol: user.rol, usuarioId: user.id };
     } else {
-      return { autenticado: false, usuario: null, rol: null };
+      return { autenticado: false, usuario: null, rol: null, usuarioId: null };
     }
+    
   }
+  async registrarEscaneo(usuarioId: string, contenido: string) {
+    const db = await this.sqlite.create({
+        name: 'data.db',
+        location: 'default'
+    });
+
+    // Reemplazar el contenido escaneado por "Presente"
+    const nuevoContenido = 'Presente';
+    const ramo = 'Programacion de apps moviles';
+    let currentDate = new Date();
+    const formattedDate = currentDate.toISOString();
+
+
+    // Insertar el resultado del escaneo en la nueva tabla asociándolo con el usuario
+    await db.executeSql('INSERT INTO asistencia (ramo, fecha, contenido, usuario_id) VALUES (?, ?, ?, ?)', [ramo, formattedDate, nuevoContenido, usuarioId]);
+}
+  
+  async obtenerEscaneos(usuarioId: string) {
+    const db = await this.sqlite.create({
+      name: 'data.db',
+      location: 'default'
+    });
+
+     // Obtener los resultados de escaneos almacenados para el usuario actual
+     const result = await db.executeSql('SELECT asistencia.*, usuarios.usuario as nombreUsuario FROM asistencia INNER JOIN usuarios ON asistencia.usuario_id = usuarios.id WHERE usuario_id = ?', [usuarioId]);
+
+     const escaneos = [];
+     for (let i = 0; i < result.rows.length; i++) {
+         escaneos.push(result.rows.item(i));
+     }
+ 
+     return escaneos;
+ }
+ async obtenerEscaneos2() {
+  const db = await this.sqlite.create({
+    name: 'data.db',
+    location: 'default'
+  });
+
+  // Obtener todos los resultados de escaneos almacenados sin filtrar por usuario
+  const result = await db.executeSql('SELECT asistencia.*, usuarios.usuario as nombreUsuario FROM asistencia INNER JOIN usuarios ON asistencia.usuario_id = usuarios.id', []);
+
+  const escaneos = [];
+  for (let i = 0; i < result.rows.length; i++) {
+    escaneos.push(result.rows.item(i));
+  }
+
+  return escaneos;
+ }
 }

@@ -17,48 +17,20 @@
     <table>
       <thead>
         <tr>
-          <th>Nombres</th>
-          <th>Apellidos</th>
-          <th>Asistemcia</th>
+          <th>Nombre</th>
+          <th>Asistencia</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Juan Pedro</td>
-          <td>Herrera Martinez</td>
-          <td>Presente</td>
+        <!-- Utiliza *ngFor para iterar sobre los alumnos presentes -->
+        <tr *ngFor="let alumno of alumnosPresentes">
+          <td>{{ alumno.nombreUsuario }}</td>
+          <td>{{ alumno.contenido }}</td>
         </tr>
-        <tr>
-          <tr>
-            <td>Pepe Martin</td>
-            <td>Bahamondes Muñoz</td>
-            <td>Presente</td>
-          </tr>
-          <tr>
-            <td>Joan Marcelo</td>
-            <td>Soto</td>
-            <td>Presente</td>
-          </tr>
-          <tr>
-            <td>Cristian Gonzalo</td>
-            <td>Gonzalez Alcachofa</td>
-            <td>Presente</td>
-          </tr>
-          <tr>
-            <td>Kevin Maximiliano</td>
-            <td>Peña Pizarro</td>
-            <td>Ausente</td>
-          </tr>
-          <tr>
-            <td>Bryan Byron</td>
-            <td>Gómez Núñez</td>
-            <td>Ausente</td>
-          </tr>
       </tbody>
     </table>
   </ion-content>
 </ion-content>
-
 
 <ion-footer id="footer">
   <ion-toolbar color="#f8b415">

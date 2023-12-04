@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
+import { SqliteService } from '../Servicios/sqlite.service';
+
 
 
 @Component({
@@ -19,7 +21,8 @@ export class InicioPage implements OnInit {
   constructor(
     private alertController: AlertController,
     private toastController: ToastController,
-    private router: Router
+    private router: Router,
+    private sqliteService: SqliteService
   ) {}
 
   ngOnInit() {}
@@ -30,14 +33,27 @@ export class InicioPage implements OnInit {
     await BarcodeScanner.checkPermission({ force: true });
     BarcodeScanner.hideBackground();
     this.toggleVisibility();
-    const result = await BarcodeScanner.startScan();
+   // Obtener el usuarioId del localStorage
+  const usuarioId = localStorage.getItem('usuarioId');
 
-    if (result.hasContent) {
-      this.lectura = result.content;
-    }
+  if (!usuarioId) {
+    // Si no hay usuarioId, podrías manejar esto de alguna manera (por ejemplo, redirigir a la página de inicio de sesión)
+    console.log('No hay usuarioId en el localStorage. Manejar esto según tu lógica.');
     this.toggleVisibility();
-    
-  } 
+    return;
+  }
+
+  const result = await BarcodeScanner.startScan();
+
+  if (result.hasContent) {
+    this.lectura = result.content;
+
+    // Utiliza el usuarioId obtenido para asociar el escaneo al usuario correcto
+    this.sqliteService.registrarEscaneo(usuarioId, result.content);
+  }
+
+  this.toggleVisibility();
+}
 
   async stopScan() {
     const alert = await this.alertController.create({
@@ -91,6 +107,9 @@ export class InicioPage implements OnInit {
           handler: async () => {
             console.log('Redireccionando...');
             localStorage.removeItem('autenticado');
+            localStorage.removeItem('usuarioUsuario');
+            localStorage.removeItem('rolUsuario');
+            localStorage.removeItem('usuarioId');
             window.history.back();
             const toast = await this.toastController.create({
               message: 'El usuario cerro sesion con exito!!!',

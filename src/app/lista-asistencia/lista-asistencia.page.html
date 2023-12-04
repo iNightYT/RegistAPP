@@ -18,6 +18,26 @@
     <table>
       <thead>
         <tr>
+          <th>Ramo</th>
+          <th>Fecha</th>
+          <th>Asistencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Utiliza *ngFor para iterar sobre los resultados -->
+        <tr *ngFor="let resultado of resultadosEscaneo">
+          <td>{{ resultado.ramo }}</td>
+          <td>{{ resultado.fecha }}</td>
+          <td>{{ resultado.contenido }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </ion-content>
+</ion-content>
+  <!-- <ion-content>
+    <table>
+      <thead>
+        <tr>
           <th>Fecha</th>
           <th>Ramo</th>
           <th>Asistencia</th>
@@ -27,7 +47,7 @@
         <tr>
           <td>21/08/2023</td>
           <td>Matematica aplicada</td>
-          <td>Presente</td>
+          <td>{{ lectura }}</td>
         </tr>
         <tr>
           <td>21/08/2023</td>
@@ -53,7 +73,8 @@
     </table>
   </ion-content>
 </ion-content>
-  
+   -->
+
 
 
 
