@@ -28,3 +28,9 @@
 
 ### V3
 - Se le agrega un boton mientras que se escanea el QR para parar el escaneo donde se muestra una alerta si el usuario quiere parar el escaneo o no (2 de noviembre 2023)
+- Se le genera una apk de la version (29 de noviembre 2023) link de descarga: https://drive.google.com/file/d/1nakkAQgUGATMyOIfrSaK2eblz_2t1DIm/view?usp=drive_link
+
+### V4 (Final)
+- Se le implementa sqlite (base de datos) (1 de diciembre 2023)
+- se almacenan a los usuarios mediante a la base de datos (1 de de diciembre 2023)
+- se le almacenan los escaneos y los lleva a la page de lista-asistencia y listado-alumnos (4 de diciembre 2023)
