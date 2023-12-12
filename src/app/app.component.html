@@ -3,26 +3,40 @@
     <ion-header>
       <ion-toolbar color="#f8b415">
         <ion-title>
-          <ion-img id="Imagen" src="https://reqlut2.s3.sa-east-1.amazonaws.com/reqlut-images/duoc/logo_duoc_white.png?v=54"></ion-img>
+          <ion-img id="Imagen"
+            src="https://reqlut2.s3.sa-east-1.amazonaws.com/reqlut-images/duoc/logo_duoc_white.png?v=54"></ion-img>
         </ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item lines="none" (click)="closeMenuAndNavigate('/inicio')"class="ion-activatable" class="ion-activatable white-text-icon" class="ion-activatable large-text">
+        <ion-item lines="none" (click)="closeMenuAndNavigate('/inicio')" class="ion-activatable"
+          class="ion-activatable white-text-icon" class="ion-activatable large-text">
           <ion-icon name="home" class="ion-color-primary" class="ion-color-primary white-text-icon"></ion-icon>
           Inicio
         </ion-item>
-        <ion-item lines="none" (click)="closeMenuAndNavigate('/clima')" class="ion-activatable" class="ion-activatable white-text-icon" class="ion-activatable large-text">
+        <ion-item lines="none" (click)="closeMenuAndNavigate('/clima')" class="ion-activatable"
+          class="ion-activatable white-text-icon" class="ion-activatable large-text">
           <ion-icon name="cloud-outline" class="ion-color-primary" class="ion-color-primary white-text-icon"></ion-icon>
           Clima
         </ion-item>
-        <ion-item (click)="compartirContenido()" lines="none"  class="ion-activatable" class="ion-activatable white-text-icon" class="ion-activatable large-text">
-          <ion-icon name="share-social-outline" class="ion-color-primary" class="ion-color-primary white-text-icon"></ion-icon>
+        <ion-item (click)="compartirContenido()" lines="none" class="ion-activatable"
+          class="ion-activatable white-text-icon" class="ion-activatable large-text">
+          <ion-icon name="share-social-outline" class="ion-color-primary"
+            class="ion-color-primary white-text-icon"></ion-icon>
           Compartir App
         </ion-item>
       </ion-list>
     </ion-content>
+    <ion-footer *ngIf="isAuthenticated()">
+      <ion-toolbar color="#f8b415">
+        <ion-buttons class="ion-justify-content-center">
+          <ion-button (click)="closeMenuAndNavigate('/opciones')">
+            <ion-icon slot="icon-only" name="settings"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-footer>
   </ion-menu>
 
   <ion-router-outlet id="main-content"></ion-router-outlet>

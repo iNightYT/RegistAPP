@@ -58,6 +58,26 @@ const routes: Routes = [
     loadChildren: () => import('./clima/clima.module').then( m => m.ClimaPageModule),
     canActivate: [AuntenticadoGuard, AuthGuard]
   },
+  {
+    path: 'opciones',
+    loadChildren: () => import('./opciones/opciones.module').then( m => m.OpcionesPageModule),
+    canActivate: [AuntenticadoGuard, AuthGuard]
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule),
+    canActivate: [AuntenticadoGuard, AuthGuard]
+  },
+  {
+    path: 'cambiar-contrasena',
+    loadChildren: () => import('./cambiar-contrasena/cambiar-contrasena.module').then( m => m.CambiarContrasenaPageModule),
+    canActivate: [AuntenticadoGuard, AuthGuard]
+  },
+  {
+    path: 'acerca-de-la-app',
+    loadChildren: () => import('./acerca-de-la-app/acerca-de-la-app.module').then( m => m.AcercaDeLaAppPageModule),
+    canActivate: [AuntenticadoGuard, AuthGuard]
+  },
 ];
 
 @NgModule({

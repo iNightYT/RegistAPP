@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="#f8b415">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title id="Titulo">Cambiar Contraseña</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">cambiar_contrasena</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <form [formGroup]="formularioCambioContrasenia" class="formulario">
+    <ion-input formControlName="antiguaContrasenia" label="Coloque su antigua contraseña" label-placement="floating" fill="outline" placeholder="" type="password"></ion-input>
+    <ion-input formControlName="nuevaContrasenia" label="Nueva contraseña" label-placement="floating" fill="outline" placeholder="" type="password"></ion-input>
+    <ion-input formControlName="confirmarNuevaContrasenia" label="Repita la nueva contraseña" label-placement="floating" fill="outline" placeholder="" type="password"></ion-input>
+    <ion-button (click)="cambiarContrasenia()" class="boton">Cambiar contraseña</ion-button>
+  </form>
+</ion-content>

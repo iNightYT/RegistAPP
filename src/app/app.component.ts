@@ -11,7 +11,13 @@ import { MenuController } from '@ionic/angular';
 })
 export class AppComponent {
   constructor(private router: Router, private menu: MenuController) {}
+  isAuthenticated(): boolean {
+    // Obtén el valor almacenado en localStorage
+    const autenticado = localStorage.getItem('autenticado');
 
+    // Devuelve true si está autenticado, de lo contrario, false
+    return autenticado === 'true';
+  }
 
   closeMenuAndNavigate(page: string) {
     this.menu.close().then(() => {

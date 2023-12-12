@@ -93,4 +93,52 @@ export class SqliteService {
 
   return escaneos;
  }
+ async obtenerContraseniaActual(usuarioId: string): Promise<string | null> {
+  const db = await this.sqlite.create({
+    name: 'data.db',
+    location: 'default'
+  });
+
+  const result = await db.executeSql('SELECT contrasena FROM usuarios WHERE id = ?', [usuarioId]);
+  if (result.rows.length > 0) {
+    return result.rows.item(0).contrasena;
+  } else {
+    return null; // Usuario no encontrado, o la contraseña no está disponible
+  }
+}
+async cambiarContrasenia(usuarioId: string, nuevaContrasenia: string) {
+  const db = await this.sqlite.create({
+    name: 'data.db',
+    location: 'default'
+  });
+
+  // Actualizar la contraseña del usuario en la tabla 'usuarios'
+  await db.executeSql('UPDATE usuarios SET contrasena = ? WHERE id = ?', [nuevaContrasenia, usuarioId]);
+}
+
+async eliminarCuenta(usuarioId: string) {
+  const db = await this.sqlite.create({
+    name: 'data.db',
+    location: 'default'
+  });
+
+  // Eliminar la cuenta del usuario y sus datos de escaneo
+  await db.transaction(async (tx) => {
+    // Eliminar datos de escaneo del usuario
+    await tx.executeSql('DELETE FROM asistencia WHERE usuario_id = ?', [usuarioId]);
+
+    // Eliminar la cuenta del usuario
+    await tx.executeSql('DELETE FROM usuarios WHERE id = ?', [usuarioId]);
+  });
+}
+
+async eliminarDatosEscaneoPorUsuario(usuarioId: string) {
+  const db = await this.sqlite.create({
+    name: 'data.db',
+    location: 'default'
+  });
+
+  // Eliminar los datos de escaneo asociados al usuario
+  await db.executeSql('DELETE FROM asistencia WHERE usuario_id = ?', [usuarioId]);
+}
 }
